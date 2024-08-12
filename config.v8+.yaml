@@ -8,6 +8,7 @@ cluster-generic-submit-cmd:
     --tmp={resources.disk_mb}
     --time={resources.runtime}
     --output=logs/{rule}/{rule}-{wildcards}-%j.txt
+    $(echo -n '{resources.slurm_extra}' | sed -e 's/%3A/:/g')
     --parsable
 cluster-generic-status-cmd: status-sacct.sh
 cluster-generic-cancel-cmd: scancel
@@ -16,6 +17,7 @@ default-resources:
 - runtime=1h
 - mem_mb=1024
 - disk_mb=1024
+- slurm_extra=''
 restart-times: 3
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
