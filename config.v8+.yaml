@@ -13,7 +13,7 @@ cluster-generic-submit-cmd:
     --parsable
 cluster-generic-status-cmd: status-sacct.sh
 cluster-generic-cancel-cmd: scancel
-cluster-generic-cancel-nargs: 50
+cluster-generic-cancel-nargs: 1000
 default-resources:
   - runtime=1h
   - mem_mb=1024
