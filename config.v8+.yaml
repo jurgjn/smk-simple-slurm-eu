@@ -1,23 +1,24 @@
 executor: cluster-generic
 cluster-generic-submit-cmd:
-  mkdir -p logs/{rule} &&
+  SMK_RULE_DIR=logs/`date +"%y-%m-%d"`/`basename {workflow.main_snakefile}`/{rule} &&
+  mkdir -p $SMK_RULE_DIR &&
   sbatch
     --job-name=smk-{rule}-{wildcards}
     --ntasks={threads}
     --mem-per-cpu=`expr {resources.mem_mb} / {threads}`
     --tmp={resources.disk_mb}
     --time={resources.runtime}
-    --output=logs/{rule}/{rule}-{wildcards}-%j.txt
-    $(echo -n '{resources.slurm_extra}' | sed -e 's/%3A/:/g')
+    --output=$SMK_RULE_DIR/{rule}-{wildcards}-%j.txt
+    `echo -n '{resources.slurm_extra}' | sed -e 's/%3A/:/g'`
     --parsable
 cluster-generic-status-cmd: status-sacct.sh
 cluster-generic-cancel-cmd: scancel
 cluster-generic-cancel-nargs: 50
 default-resources:
-- runtime=1h
-- mem_mb=1024
-- disk_mb=1024
-- slurm_extra=''
+  - runtime=1h
+  - mem_mb=1024
+  - disk_mb=1024
+  - slurm_extra=''
 restart-times: 3
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
