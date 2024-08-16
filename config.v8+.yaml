@@ -1,15 +1,17 @@
 executor: cluster-generic
 cluster-generic-submit-cmd:
   SMK_RULE_DIR=logs/`date +"%y-%m-%d"`/`basename {workflow.main_snakefile}`/{rule} &&
+  SMK_WILDCARDS=`echo -n '{wildcards}' | sed -e 's#/#_#g'` &&
+  SMK_SLURM_EXTRA=`echo -n '{resources.slurm_extra}' | sed -e 's/%3A/:/g'` &&
   mkdir -p $SMK_RULE_DIR &&
   sbatch
-    --job-name=smk-{rule}-{wildcards}
+    --job-name=smk-{rule}:{wildcards}
     --ntasks={threads}
     --mem-per-cpu=`expr {resources.mem_mb} / {threads}`
     --tmp={resources.disk_mb}
     --time={resources.runtime}
-    --output=$SMK_RULE_DIR/{rule}-{wildcards}-%j.txt
-    `echo -n '{resources.slurm_extra}' | sed -e 's/%3A/:/g'`
+    --output=$SMK_RULE_DIR/{rule}:$SMK_WILDCARDS-%j.txt
+    $SMK_SLURM_EXTRA
     --parsable
 cluster-generic-status-cmd: status-sacct.sh
 cluster-generic-cancel-cmd: scancel
