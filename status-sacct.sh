@@ -19,6 +19,11 @@ then
 elif [[ $output =~ ^(RUNNING|PENDING|COMPLETING|CONFIGURING|SUSPENDED).* ]]
 then
   echo running
+elif [[ -z "$output" ]]
+then
+  echo smk-simple-slurm: sacct for job ID "$jobid" is null/empty, exiting with "running" >&2
+  echo running
 else
+  echo smk-simple-slurm: sacct for job ID "$jobid" returned: "'$output'", exiting with "failed" >&2
   echo failed
 fi
