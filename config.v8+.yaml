@@ -20,7 +20,7 @@ default-resources:
   runtime: 1h
   mem_mb: 1024
   disk_mb: 1024
-  slurm_extra:
+  slurm_extra: "''"
 restart-times: 3
 max-jobs-per-second: 10
 max-status-checks-per-second: 1
