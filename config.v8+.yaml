@@ -32,3 +32,4 @@ rerun-incomplete: True
 printshellcmds: True
 scheduler: greedy
 use-conda: True
+cores: 16 # https://github.com/snakemake/snakemake/issues/2997
