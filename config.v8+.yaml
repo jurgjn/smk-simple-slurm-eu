@@ -22,8 +22,7 @@ default-resources:
   disk_mb: 1024
   slurm_extra: "''"
 restart-times: 3
-#https://github.com/snakemake/snakemake/issues/3019
-max-jobs-per-second: 200
+max-jobs-per-second: 10
 max-status-checks-per-second: 1
 local-cores: 1
 latency-wait: 60
@@ -33,4 +32,4 @@ rerun-incomplete: True
 printshellcmds: True
 scheduler: greedy
 use-conda: True
-cores: 64 # https://github.com/snakemake/snakemake/issues/2997
+cores: 64 # workaround for https://github.com/snakemake/snakemake/issues/2997
