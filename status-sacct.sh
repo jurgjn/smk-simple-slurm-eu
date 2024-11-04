@@ -16,7 +16,7 @@ output=`sacct -j "$jobid" --format State --noheader | head -n 1 | awk '{print $1
 if [[ $output =~ ^(COMPLETED).* ]]
 then
   echo success
-  sacct --jobs="$jobid" --json >> .smk-sacct-success.json
+  sacct --jobs="$jobid" --json >> .snakemake-eu/status-sacct-success.json
 elif [[ $output =~ ^(RUNNING|PENDING|COMPLETING|CONFIGURING|SUSPENDED).* ]]
 then
   echo running
@@ -27,5 +27,5 @@ then
 else
   echo smk-simple-slurm: sacct for job ID "$jobid" returned: "'$output'", exiting with "failed" >&2
   echo failed
-  sacct --jobs="$jobid" --json >> .smk-sacct-failed.json
+  sacct --jobs="$jobid" --json >> .snakemake-eu/status-sacct-failed.json
 fi

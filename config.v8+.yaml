@@ -1,6 +1,6 @@
 executor: cluster-generic
 cluster-generic-submit-cmd:
-  SMK_RULE_DIR=logs/`date +"%y-%m-%d"`/{rule} &&
+  SMK_RULE_DIR=.snakemake-eu/logs/`date +"%y-%m-%d"`/{rule} &&
   SMK_WILDCARDS=`echo -n '{wildcards}' | sed -e 's#/#-#g'` &&
   SMK_SLURM_EXTRA=`echo -n '{resources.slurm_extra}' | sed -e 's/%/:/g'` &&
   mkdir -p $SMK_RULE_DIR &&
