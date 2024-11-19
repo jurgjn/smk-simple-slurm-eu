@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+# `install -D /dev/stdin` from https://stackoverflow.com/questions/21052925/bash-redirect-and-append-to-non-existent-file-directory
 # Check status of Slurm job
 
 jobid="$1"
@@ -16,7 +16,8 @@ output=`sacct -j "$jobid" --format State --noheader | head -n 1 | awk '{print $1
 if [[ $output =~ ^(COMPLETED).* ]]
 then
   echo success
-  sacct --jobs="$jobid" --json >> .snakemake-eu/status-sacct-success.json
+  sacct --jobs="$jobid" --json | install -D /dev/stdin .snakemake-eu/sacct/"$jobid".json
+  myjobs -j "$jobid" | install -D /dev/stdin .snakemake-eu/myjobs/"$jobid".txt
 elif [[ $output =~ ^(RUNNING|PENDING|COMPLETING|CONFIGURING|SUSPENDED).* ]]
 then
   echo running
@@ -27,5 +28,6 @@ then
 else
   echo smk-simple-slurm: sacct for job ID "$jobid" returned: "'$output'", exiting with "failed" >&2
   echo failed
-  sacct --jobs="$jobid" --json >> .snakemake-eu/status-sacct-failed.json
+  sacct --jobs="$jobid" --json | install -D /dev/stdin .snakemake-eu/sacct/"$jobid".json
+  myjobs -j "$jobid" | install -D /dev/stdin .snakemake-eu/myjobs/"$jobid".txt
 fi
