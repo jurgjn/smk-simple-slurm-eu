@@ -33,4 +33,3 @@ printshellcmds: True
 scheduler: greedy
 use-conda: False
 use-envmodules: True
-cores: 64 # workaround for https://github.com/snakemake/snakemake/issues/2997
