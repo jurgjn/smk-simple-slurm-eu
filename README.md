@@ -13,7 +13,9 @@ as follows:
 - `disk_mb` sets Euler's [local scratch space](https://scicomp.ethz.ch/wiki/Using_local_scratch); mapped to `--tmp`
 - `runtime` sets max wall-clock time; mapped to `--time` and converted for `sbatch` if needed, e.g. `1d` becomes `'1-00:00:00'`
 
-There’s also `slurm_extra` to add additional arguments (e.g. [allocate a GPU](https://scicomp.ethz.ch/wiki/Getting_started_with_GPUs#How_to_select_GPU_memory) with `--gpus:1`) to the `sbatch` call. 
+There’s also `slurm_extra` for additional arguments to `sbatch`:
+- [allocate a GPU](https://scicomp.ethz.ch/wiki/Getting_started_with_GPUs#How_to_select_GPU_memory), e.g. `--gpus=rtx_2080_ti:1`
+- [specify a shareholder group](https://docs.hpc.ethz.ch/batchsystem/slurm/?h=my_share_inf#my_share_info), e.g. `--account=es_example`
 
 ## Known issues & workarounds
 - Job status checks with `sacct` sometimes return empty output (with the job running); as a workaround, `status-sacct.sh` will specifically check for this and return `running`
