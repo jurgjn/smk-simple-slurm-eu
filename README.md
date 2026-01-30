@@ -17,7 +17,7 @@ as follows:
 | ---------- |----------------------|-----------------|---------|
 | `runtime`  | wall-clock time      | `--time`        | converted, e.g. `1d` becomes `'1-00:00:00'` |
 | `threads`  | number of cores      | `--ntasks`      | |
-| `mem_mb`   | total RAM            | `--mem-per-cpu` | converted to ram-per-CPU based using the number of cores |
+| `mem_mb`   | total RAM            | `--mem-per-cpu` | converted to RAM-per-CPU using number of cores |
 | `disk_mb`  | [local scratch](https://scicomp.ethz.ch/wiki/Using_local_scratch)  | `--tmp`         | |
 
 There’s also `slurm_extra` for additional arguments to `sbatch`:
