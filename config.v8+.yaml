@@ -5,7 +5,7 @@ cluster-generic-submit-cmd:
   SMK_SLURM_EXTRA=`echo -n '{resources.slurm_extra}'` &&
   mkdir -p $SMK_RULE_DIR &&
   sbatch
-    --job-name={rule}:{wildcards}
+    --job-name=$SMK_JOB_NAME_PREFIX{rule}:{wildcards}
     --ntasks={threads}
     --mem-per-cpu=`expr {resources.mem_mb} / {threads}`
     --tmp={resources.disk_mb}
